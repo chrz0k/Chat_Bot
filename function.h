@@ -6,6 +6,14 @@
 
 using namespace std;
 
+struct Question_Answer
+{
+    string question;
+    string answer;
+};
+
+extern vector<Question_Answer> database;
+
 void loadData();
 void saveData();
 void addQuestion_Answer();

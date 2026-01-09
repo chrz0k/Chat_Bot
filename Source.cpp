@@ -58,13 +58,15 @@ int main()
 			cin.ignore();
 			break;
 		case 5:
-			editQuestion_Answer();			cout <<
+			editQuestion_Answer();			
+			cout <<
 				"=================================\n" <<
 				"Нажмите Enter чтобы продолжить...";
 			cin.ignore();
 			break;
 		case 6:
-			deleteQuestion_Answer();			cout <<
+			deleteQuestion_Answer();			
+			cout <<
 				"=================================\n" <<
 				"Нажмите Enter чтобы продолжить...";
 			cin.ignore();

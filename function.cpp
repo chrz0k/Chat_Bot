@@ -2,24 +2,18 @@
 
 using namespace std;
 
-struct Question_Answer
-{
-	string question;
-	string answer;
-};
-
 vector<Question_Answer> database;
 
 void loadData()
 {
 	string f;
 	cout << "Введите имя файла для загрузки данных: ";
-	cin >> f;
+	getline(cin, f);
 	ifstream file(f);
 	cin.ignore();
 	if (!file)
 	{
-		cout << "\nФайл не найден, создан новый.\n"; return;
+		cout << "\nФайл не найден, создан новый с указанным названием.\n"; return;
 	}
 	database.clear();
 	Question_Answer item;
@@ -38,7 +32,7 @@ void saveData()
 {
 	string f;
 	cout << "Введите имя файла для сохранения данных: ";
-	cin >> f;
+	getline(cin, f);
 	ofstream file(f);
 	cin.ignore();
 	for (auto& Question_Answer : database)
@@ -57,7 +51,7 @@ void addQuestion_Answer()
 	cout << "Ответ: ";
 	getline(cin, newQuestion_Answer.answer);
 	database.push_back(newQuestion_Answer);
-	cout << "\nДобавлено.\n";
+	cout << "\nВопрос добавлен.\n";
 }
 
 void findAnswer()
