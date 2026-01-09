@@ -8,3 +8,5 @@ using namespace std;
 
 void loadData();
 void saveData();
+void addQuestion_Answer();
+void findAnswer();

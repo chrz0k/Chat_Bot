@@ -1,4 +1,4 @@
-#include "function.h"
+ï»¿#include "function.h"
 
 using namespace std;
 
@@ -13,13 +13,13 @@ vector<Question_Answer> database;
 void loadData()
 {
 	string f;
-	cout << "Ââåäèòå èìÿ ôàéëà äëÿ çàãðóçêè äàííûõ: ";
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ Ñ„Ð°Ð¹Ð»Ð° Ð´Ð»Ñ Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ¸ Ð´Ð°Ð½Ð½Ñ‹Ñ…: ";
 	cin >> f;
 	ifstream file(f);
 	cin.ignore();
 	if (!file)
 	{
-		cout << "\nÔàéë íå íàéäåí, ñîçäàí íîâûé.\n"; return;
+		cout << "\nÐ¤Ð°Ð¹Ð» Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½, ÑÐ¾Ð·Ð´Ð°Ð½ Ð½Ð¾Ð²Ñ‹Ð¹.\n"; return;
 	}
 	database.clear();
 	Question_Answer item;
@@ -31,13 +31,13 @@ void loadData()
 		}
 	}
 	file.close();
-	cout << "\nÇàãðóæåíî " << database.size() << " âîïðîñîâ.\n";
+	cout << "\nÐ—Ð°Ð³Ñ€ÑƒÐ¶ÐµÐ½Ð¾ " << database.size() << " Ð²Ð¾Ð¿Ñ€Ð¾ÑÐ¾Ð².\n";
 }
 
 void saveData()
 {
 	string f;
-	cout << "Ââåäèòå èìÿ ôàéëà äëÿ ñîõðàíåíèÿ äàííûõ: ";
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ Ñ„Ð°Ð¹Ð»Ð° Ð´Ð»Ñ ÑÐ¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð´Ð°Ð½Ð½Ñ‹Ñ…: ";
 	cin >> f;
 	ofstream file(f);
 	cin.ignore();
@@ -46,5 +46,47 @@ void saveData()
 		file << Question_Answer.question << "\n" << Question_Answer.answer << "\n";
 	}
 	file.close();
-	cout << "\nÄàííûå ñîõðàíåíû.\n";
+	cout << "\nÐ”Ð°Ð½Ð½Ñ‹Ðµ ÑÐ¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ñ‹.\n";
+}
+
+void addQuestion_Answer()
+{
+	Question_Answer newQuestion_Answer;
+	cout << "Ð’Ð¾Ð¿Ñ€Ð¾Ñ: ";
+	getline(cin, newQuestion_Answer.question);
+	cout << "ÐžÑ‚Ð²ÐµÑ‚: ";
+	getline(cin, newQuestion_Answer.answer);
+	database.push_back(newQuestion_Answer);
+	cout << "\nÐ”Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¾.\n";
+}
+
+void findAnswer()
+{
+	if (database.empty())
+	{
+		cout << "ÐÐµÑ‚ Ð´Ð°Ð½Ð½Ñ‹Ñ….\n";
+		return;
+	}
+	string question;
+	cout << "Ð’Ð°Ñˆ Ð²Ð¾Ð¿Ñ€Ð¾Ñ: ";
+	getline(cin, question);
+	for (auto& Question_Answer : database)
+	{
+		if (Question_Answer.question == question)
+		{
+			cout << "ÐžÑ‚Ð²ÐµÑ‚: " << Question_Answer.answer << "\n";
+			return;
+		}
+	}
+	for (auto& Question_Answer : database)
+	{
+		if (Question_Answer.question.find(question) != string::npos)
+		{
+			cout << "\nÐÐ°Ð¹Ð´ÐµÐ½Ð¾ Ð¿Ð¾Ñ…Ð¾Ð¶ÐµÐµ:\n";
+			cout << "\nÐ’Ð¾Ð¿Ñ€Ð¾Ñ: " << Question_Answer.question << "\n";
+			cout << "ÐžÑ‚Ð²ÐµÑ‚: " << Question_Answer.answer << "\n";
+			return;
+		}
+	}
+	cout << "\nÐ’Ð¾Ð¿Ñ€Ð¾Ñ Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½.\n";
 }
