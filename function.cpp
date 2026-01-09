@@ -90,3 +90,62 @@ void findAnswer()
 	}
 	cout << "\nВопрос не найден.\n";
 }
+
+void printQuestion_Answer()
+{
+	if (database.empty())
+	{
+		cout << "Вопросов нет.\n";
+		return;
+	}
+	cout << "Все вопросы:\n";
+	for (int i = 0; i < database.size(); i++)
+	{
+		cout << i + 1 << ". " << database[i].question << "\n";
+	}
+}
+
+void editQuestion_Answer()
+{
+	printQuestion_Answer();
+	if (database.empty())
+	{
+		cout << "Нечего редактировать.\n";
+		return;
+	}
+	int number;
+	cout << "\nВведите номер для редактирования: ";
+	cin >> number;
+	cin.ignore();
+	if (number < 1 or number > database.size())
+	{
+		cout << "\nОшибка\n";
+		return;
+	}
+	cout << "\nНовый вопрос: ";
+	getline(cin, database[number - 1].question);
+	cout << "Новый ответ: ";
+	getline(cin, database[number - 1].answer);
+	cout << "\nГотово.\n";
+}
+
+void deleteQuestion_Answer()
+{
+	printQuestion_Answer();
+	if (database.empty())
+	{
+		cout << "Нечего удалять.\n";
+		return;
+	}
+	int number;
+	cout << "\nВведите номер для удаления: ";
+	cin >> number;
+	cin.ignore();
+	if (number < 1 or number>database.size())
+	{
+		cout << "\nОшибка.\n";
+		return;
+	}
+	database.erase(database.begin() + (number - 1));
+	cout << "\nУдалено.\n";
+}
