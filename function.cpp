@@ -65,7 +65,7 @@ void addQuestion_Answer()
 	std::cout << "Ответ: ";
 	std::getline(std::cin, newQuestion_Answer.answer);
 	database.push_back(newQuestion_Answer);
-	std::cout << "\nВопрос добавлен.\n";
+	std::cout << "\nДобавлено.\n";
 }
 
 void findAnswer()
@@ -224,7 +224,7 @@ void deleteQuestion_Answer()
 		}
 		break;
 	}
-	std::cout << "Вы уверены, что хотите удалить вопрос " << database[number - 1].question << "? (y/n): ";
+	std::cout << "Вы уверены, что хотите удалить вопрос " << number - 1 << "? (y/n): ";
 	std::string confirm;
 	std::getline(std::cin, confirm);
 	if (confirm == "y" || confirm == "Y" || confirm == "д" || confirm == "Д")
