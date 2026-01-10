@@ -14,6 +14,7 @@ struct Question_Answer
 
 extern vector<Question_Answer> database;
 
+int checkmenu();
 void loadData();
 void saveData();
 void addQuestion_Answer();

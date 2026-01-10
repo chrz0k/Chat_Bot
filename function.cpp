@@ -9,6 +9,15 @@ void loadData()
 	string f;
 	cout << "Введите имя файла для загрузки данных: ";
 	getline(cin, f);
+	if (f.empty())
+	{
+		cout << "\nОшибка: Имя файла не может быть пустым\n";
+		return;
+	}
+	if (f.find('.') == string::npos)
+	{
+		f += ".txt";
+	}
 	ifstream file(f);
 	cin.ignore();
 	if (!file)
@@ -33,6 +42,15 @@ void saveData()
 	string f;
 	cout << "Введите имя файла для сохранения данных: ";
 	getline(cin, f);
+	if (f.empty())
+	{
+		cout << "\nОшибка: Имя файла не может быть пустым\n";
+		return;
+	}
+	if (f.find('.') == string::npos)
+	{
+		f += ".txt";
+	}
 	ofstream file(f);
 	cin.ignore();
 	for (auto& Question_Answer : database)
@@ -110,17 +128,57 @@ void editQuestion_Answer()
 	int number;
 	cout << "\nВведите номер для редактирования: ";
 	cin >> number;
-	cin.ignore();
-	if (number < 1 or number > database.size())
+	while (true)
 	{
-		cout << "\nОшибка\n";
-		return;
+		cout << "\nВведите номер для редактирования (1-" << database.size() << "): ";
+		string input;
+		getline(cin, input);
+		if (input.empty())
+		{
+			cout << "\nОшибка: Введите число\n";
+			continue;
+		}
+		bool checkNumber = true;
+		for (char c : input)
+		{
+			if (!isdigit(c))
+			{
+				checkNumber = false;
+				break;
+			}
+		}
+		if (!checkNumber)
+		{
+			cout << "\nОшибка: Введите число\n";
+			continue;
+		}
+		try
+		{
+			number = stoi(input);
+		}
+		catch (...)
+		{
+			cout << "\nОшибка: Неверное число\n";
+			continue;
+		}
+		if (number < 1 || number > database.size())
+		{
+			cout << "\nОшибка: Число должно быть от 1 до " << database.size() << "\n";
+			continue;
+		}
+		break;
 	}
-	cout << "\nНовый вопрос: ";
-	getline(cin, database[number - 1].question);
+	cout << "Новый вопрос: ";
+	string newQuestion;
+	getline(cin, newQuestion);
 	cout << "Новый ответ: ";
-	getline(cin, database[number - 1].answer);
-	cout << "\nГотово.\n";
+	string newAnswer;
+	getline(cin, newAnswer);
+	if (!newQuestion.empty())
+		database[number - 1].question = newQuestion;
+	if (!newAnswer.empty())
+		database[number - 1].answer = newAnswer;
+	cout << "Готово\n";
 }
 
 void deleteQuestion_Answer()
@@ -134,12 +192,101 @@ void deleteQuestion_Answer()
 	int number;
 	cout << "\nВведите номер для удаления: ";
 	cin >> number;
-	cin.ignore();
-	if (number < 1 or number>database.size())
+	while (true)
 	{
-		cout << "\nОшибка.\n";
-		return;
+		cout << "\nВведите номер для удаления (1-" << database.size() << "): ";
+		string input;
+		getline(cin, input);
+		if (input.empty())
+		{
+			cout << "\nОшибка: Введите число\n";
+			continue;
+		}
+		bool checkNumber = true;
+		for (char c : input)
+		{
+			if (!isdigit(c))
+			{
+				checkNumber = false;
+				break;
+			}
+		}
+		if (!checkNumber)
+		{
+			cout << "\nОшибка: Введите число\n";
+			continue;
+		}
+		try
+		{
+			number = stoi(input);
+		}
+		catch (...)
+		{
+			cout << "\nОшибка: Неверное число\n";
+			continue;
+		}
+		if (number < 1 || number > database.size())
+		{
+			cout << "\nОшибка: Число должно быть от 1 до " << database.size() << "\n";
+			continue;
+		}
+		break;
 	}
-	database.erase(database.begin() + (number - 1));
-	cout << "\nУдалено.\n";
+	cout << "Вы уверены, что хотите удалить вопрос \"" << database[number - 1].question << "\"? (y/n): ";
+	string confirm;
+	getline(cin, confirm);
+	if (confirm == "y" || confirm == "Y" || confirm == "д" || confirm == "Д")
+	{
+		database.erase(database.begin() + (number - 1));
+		cout << "Удалено\n";
+	}
+	else
+	{
+		cout << "Отменено\n";
+	}
+}
+
+int checkmenu()
+{
+	string input;
+	while (true)
+	{
+		cout << "Ваш выбор: ";
+		getline(cin, input);
+		if (input.empty())
+		{
+			cout << "Ошибка: Введите число\n\n";
+			continue;
+		}
+		bool checkNumber = true;
+		for (char c : input)
+		{
+			if (!isdigit(c))
+			{
+				checkNumber = false;
+				break;
+			}
+		}
+		if (!checkNumber)
+		{
+			cout << "Ошибка: Введите число, а не текст\n\n";
+			continue;
+		}
+		try
+		{
+			int choice = stoi(input);
+			if (choice >= 0 && choice <= 8)
+			{
+				return choice;
+			}
+			else
+			{
+				cout << "Ошибка: Число должно быть от 0 до 8\n\n";
+			}
+		}
+		catch (...)
+		{
+			cout << "Ошибка: Неверное число\n\n";
+		}
+	}
 }
