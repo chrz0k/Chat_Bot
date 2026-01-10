@@ -224,7 +224,7 @@ void deleteQuestion_Answer()
 		}
 		break;
 	}
-	std::cout << "Вы уверены, что хотите удалить вопрос " << number - 1 << "? (y/n): ";
+	std::cout << "Вы уверены, что хотите удалить вопрос " << number << "? (y/n): ";
 	std::string confirm;
 	std::getline(std::cin, confirm);
 	if (confirm == "y" || confirm == "Y" || confirm == "д" || confirm == "Д")
