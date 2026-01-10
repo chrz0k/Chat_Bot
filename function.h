@@ -1,19 +1,18 @@
-#pragma once
+﻿#pragma once
 #include <iostream>
 #include <vector>
 #include <string>
 #include <fstream>
 
-using namespace std;
-
 struct Question_Answer
 {
-    string question;
-    string answer;
+    std::string question;
+    std::string answer;
 };
 
-extern vector<Question_Answer> database;
+extern std::vector<Question_Answer> database;
 
+bool asksave();
 int checkmenu();
 void loadData();
 void saveData();

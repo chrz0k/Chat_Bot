@@ -1,119 +1,115 @@
 ﻿#include "function.h"
 
-using namespace std;
-
-vector<Question_Answer> database;
+std::vector<Question_Answer> database;
 
 void loadData()
 {
-	string f;
-	cout << "Введите имя файла для загрузки данных: ";
-	getline(cin, f);
+	std::string f;
+	std::cout << "Введите имя файла для загрузки данных: ";
+	std::getline(std::cin, f);
 	if (f.empty())
 	{
-		cout << "\nОшибка: Имя файла не может быть пустым\n";
+		std::cout << "\nОшибка: Имя файла не может быть пустым\n";
 		return;
 	}
-	if (f.find('.') == string::npos)
+	if (f.find('.') == std::string::npos)
 	{
 		f += ".txt";
 	}
-	ifstream file(f);
-	cin.ignore();
+	std::ifstream file(f);
 	if (!file)
 	{
-		cout << "\nФайл не найден, создан новый с указанным названием.\n"; return;
+		std::cout << "\nФайл не найден, создан новый с указанным названием.\n"; return;
 	}
 	database.clear();
 	Question_Answer item;
-	while (getline(file, item.question))
+	while (std::getline(file, item.question))
 	{
-		if (getline(file, item.answer))
+		if (std::getline(file, item.answer))
 		{
 			database.push_back(item);
 		}
 	}
 	file.close();
-	cout << "\nЗагружено " << database.size() << " вопросов.\n";
+	std::cout << "\nЗагружено " << database.size() << " вопросов.\n";
 }
 
 void saveData()
 {
-	string f;
-	cout << "Введите имя файла для сохранения данных: ";
-	getline(cin, f);
+	std::string f;
+	std::cout << "Введите имя файла для сохранения данных: ";
+	std::getline(std::cin, f);
 	if (f.empty())
 	{
-		cout << "\nОшибка: Имя файла не может быть пустым\n";
+		std::cout << "\nОшибка: Имя файла не может быть пустым\n";
 		return;
 	}
-	if (f.find('.') == string::npos)
+	if (f.find('.') == std::string::npos)
 	{
 		f += ".txt";
 	}
-	ofstream file(f);
-	cin.ignore();
+	std::ofstream file(f);
 	for (auto& Question_Answer : database)
 	{
 		file << Question_Answer.question << "\n" << Question_Answer.answer << "\n";
 	}
 	file.close();
-	cout << "\nДанные сохранены.\n";
+	std::cout << "\nДанные сохранены.\n";
 }
 
 void addQuestion_Answer()
 {
 	Question_Answer newQuestion_Answer;
-	cout << "Вопрос: ";
-	getline(cin, newQuestion_Answer.question);
-	cout << "Ответ: ";
-	getline(cin, newQuestion_Answer.answer);
+	std::cout << "Вопрос: ";
+	std::getline(std::cin, newQuestion_Answer.question);
+	std::cout << "Ответ: ";
+	std::getline(std::cin, newQuestion_Answer.answer);
 	database.push_back(newQuestion_Answer);
-	cout << "\nВопрос добавлен.\n";
+	std::cout << "\nВопрос добавлен.\n";
 }
 
 void findAnswer()
 {
 	if (database.empty())
 	{
-		cout << "Нет данных.\n";
+		std::cout << "Нет данных.\n";
 		return;
 	}
-	string question;
-	cout << "Ваш вопрос: ";
-	getline(cin, question);
+	std::string question;
+	std::cout << "Ваш вопрос: ";
+	std::getline(std::cin, question);
 	for (auto& Question_Answer : database)
 	{
 		if (Question_Answer.question == question)
 		{
-			cout << "Ответ: " << Question_Answer.answer << "\n";
+			std::cout << "Ответ: " << Question_Answer.answer << "\n";
 			return;
 		}
 	}
 	for (auto& Question_Answer : database)
 	{
-		if (Question_Answer.question.find(question) != string::npos)
+		if (Question_Answer.question.find(question) != std::string::npos)
 		{
-			cout << "\nНайдено похожее:\n";
-			cout << "\nВопрос: " << Question_Answer.question << "\n";
-			cout << "Ответ: " << Question_Answer.answer << "\n";
+			std::cout << "\nНайдено похожее:\n";
+			std::cout << "\nВопрос: " << Question_Answer.question << "\n";
+			std::cout << "Ответ: " << Question_Answer.answer << "\n";
 			return;
 		}
 	}
-	cout << "\nВопрос не найден.\n";
+	std::cout << "\nВопрос не найден.\n";
 }
 
 void printQuestion_Answer()
 {
 	if (database.empty())
 	{
-		cout << "Вопросов нет.\n";
+		std::cout << "Вопросов нет.\n";
 		return;
 	}
-	cout << "Все вопросы:\n";
+	std::cout << "Все вопросы:\n";
 	for (int i = 0; i < database.size(); i++)
 	{
-		cout << i + 1 << ". " << database[i].question << "\n";
+		std::cout << i + 1 << ". " << database[i].question << "\n";
 	}
 }
 
@@ -122,20 +118,18 @@ void editQuestion_Answer()
 	printQuestion_Answer();
 	if (database.empty())
 	{
-		cout << "Нечего редактировать.\n";
+		std::cout << "Нечего редактировать.\n";
 		return;
 	}
 	int number;
-	cout << "\nВведите номер для редактирования: ";
-	cin >> number;
 	while (true)
 	{
-		cout << "\nВведите номер для редактирования (1-" << database.size() << "): ";
-		string input;
-		getline(cin, input);
+		std::cout << "\nВведите номер для редактирования (1-" << database.size() << "): ";
+		std::string input;
+		std::getline(std::cin, input);
 		if (input.empty())
 		{
-			cout << "\nОшибка: Введите число\n";
+			std::cout << "\nОшибка: Введите число\n";
 			continue;
 		}
 		bool checkNumber = true;
@@ -149,7 +143,7 @@ void editQuestion_Answer()
 		}
 		if (!checkNumber)
 		{
-			cout << "\nОшибка: Введите число\n";
+			std::cout << "\nОшибка: Введите число\n";
 			continue;
 		}
 		try
@@ -158,27 +152,27 @@ void editQuestion_Answer()
 		}
 		catch (...)
 		{
-			cout << "\nОшибка: Неверное число\n";
+			std::cout << "\nОшибка: Неверное число\n";
 			continue;
 		}
 		if (number < 1 || number > database.size())
 		{
-			cout << "\nОшибка: Число должно быть от 1 до " << database.size() << "\n";
+			std::cout << "\nОшибка: Число должно быть от 1 до " << database.size() << "\n";
 			continue;
 		}
 		break;
 	}
-	cout << "Новый вопрос: ";
-	string newQuestion;
-	getline(cin, newQuestion);
-	cout << "Новый ответ: ";
-	string newAnswer;
-	getline(cin, newAnswer);
+	std::cout << "Новый вопрос: ";
+	std::string newQuestion;
+	std::getline(std::cin, newQuestion);
+	std::cout << "Новый ответ: ";
+	std::string newAnswer;
+	std::getline(std::cin, newAnswer);
 	if (!newQuestion.empty())
 		database[number - 1].question = newQuestion;
 	if (!newAnswer.empty())
 		database[number - 1].answer = newAnswer;
-	cout << "Готово\n";
+	std::cout << "Готово\n";
 }
 
 void deleteQuestion_Answer()
@@ -186,20 +180,20 @@ void deleteQuestion_Answer()
 	printQuestion_Answer();
 	if (database.empty())
 	{
-		cout << "Нечего удалять.\n";
+		std::cout << "Нечего удалять.\n";
 		return;
 	}
 	int number;
-	cout << "\nВведите номер для удаления: ";
-	cin >> number;
+	std::cout << "\nВведите номер для удаления: ";
+	std::cin >> number;
 	while (true)
 	{
-		cout << "\nВведите номер для удаления (1-" << database.size() << "): ";
-		string input;
-		getline(cin, input);
+		std::cout << "\nВведите номер для удаления (1-" << database.size() << "): ";
+		std::string input;
+		std::getline(std::cin, input);
 		if (input.empty())
 		{
-			cout << "\nОшибка: Введите число\n";
+			std::cout << "\nОшибка: Введите число\n";
 			continue;
 		}
 		bool checkNumber = true;
@@ -213,7 +207,7 @@ void deleteQuestion_Answer()
 		}
 		if (!checkNumber)
 		{
-			cout << "\nОшибка: Введите число\n";
+			std::cout << "\nОшибка: Введите число\n";
 			continue;
 		}
 		try
@@ -222,40 +216,40 @@ void deleteQuestion_Answer()
 		}
 		catch (...)
 		{
-			cout << "\nОшибка: Неверное число\n";
+			std::cout << "\nОшибка: Неверное число\n";
 			continue;
 		}
 		if (number < 1 || number > database.size())
 		{
-			cout << "\nОшибка: Число должно быть от 1 до " << database.size() << "\n";
+			std::cout << "\nОшибка: Число должно быть от 1 до " << database.size() << "\n";
 			continue;
 		}
 		break;
 	}
-	cout << "Вы уверены, что хотите удалить вопрос \"" << database[number - 1].question << "\"? (y/n): ";
-	string confirm;
-	getline(cin, confirm);
+	std::cout << "Вы уверены, что хотите удалить вопрос " << database[number - 1].question << "? (y/n): ";
+	std::string confirm;
+	std::getline(std::cin, confirm);
 	if (confirm == "y" || confirm == "Y" || confirm == "д" || confirm == "Д")
 	{
 		database.erase(database.begin() + (number - 1));
-		cout << "Удалено\n";
+		std::cout << "Удалено\n";
 	}
 	else
 	{
-		cout << "Отменено\n";
+		std::cout << "Отменено\n";
 	}
 }
 
 int checkmenu()
 {
-	string input;
+	std::string input;
 	while (true)
 	{
-		cout << "Ваш выбор: ";
-		getline(cin, input);
+		std::cout << "Ваш выбор: ";
+		std::getline(std::cin, input);
 		if (input.empty())
 		{
-			cout << "Ошибка: Введите число\n\n";
+			std::cout << "Ошибка: Введите число\n\n";
 			continue;
 		}
 		bool checkNumber = true;
@@ -269,24 +263,46 @@ int checkmenu()
 		}
 		if (!checkNumber)
 		{
-			cout << "Ошибка: Введите число, а не текст\n\n";
+			std::cout << "Ошибка: Введите число, а не текст\n\n";
 			continue;
 		}
 		try
 		{
 			int choice = stoi(input);
-			if (choice >= 0 && choice <= 8)
+			if (choice >= 0 && choice <= 7)
 			{
 				return choice;
 			}
 			else
 			{
-				cout << "Ошибка: Число должно быть от 0 до 8\n\n";
+				std::cout << "Ошибка: Число должно быть от 0 до 7\n\n";
 			}
 		}
 		catch (...)
 		{
-			cout << "Ошибка: Неверное число\n\n";
+			std::cout << "Ошибка: Неверное число\n\n";
+		}
+	}
+}
+
+bool asksave()
+{
+	std::string answer;
+	while (true)
+	{
+		std::cout << "Сохранить данные перед выходом? (y/n): ";
+		std::getline(std::cin, answer);
+		if (answer == "y" || answer == "Y")
+		{
+			return true;
+		}
+		else if (answer == "n" || answer == "N")
+		{
+			return false;
+		}
+		else
+		{
+			std::cout << "Не понял. Введите 'y' (да) или 'n' (нет)\n";
 		}
 	}
 }
