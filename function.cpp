@@ -184,8 +184,6 @@ void deleteQuestion_Answer()
 		return;
 	}
 	int number;
-	std::cout << "\nВведите номер для удаления: ";
-	std::cin >> number;
 	while (true)
 	{
 		std::cout << "\nВведите номер для удаления (1-" << database.size() << "): ";

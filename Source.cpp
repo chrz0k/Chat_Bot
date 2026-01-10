@@ -25,7 +25,7 @@ int main()
         switch (choice)
         {
         case 0:
-            std::cout << "Уже уходите?\n";
+            std::cout << "\nУже уходите? :(\n";
             if (!database.empty())
             {
                 if (asksave())
@@ -38,8 +38,9 @@ int main()
                     std::cout << "\nДанные не сохранены.\n";
                 }
             }
-
-            std::cout << "\nВыход из программы...\n";
+            std::cout <<
+                "=================================\n";
+            std::cout << "Выход из программы...\n";
             break;
         case 1:
             loadData();
