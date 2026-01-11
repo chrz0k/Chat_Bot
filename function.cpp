@@ -78,25 +78,32 @@ void findAnswer()
 	std::string question;
 	std::cout << "Ваш вопрос: ";
 	std::getline(std::cin, question);
-	for (auto& Question_Answer : database)
+	if (question == " ")
 	{
-		if (Question_Answer.question == question)
-		{
-			std::cout << "Ответ: " << Question_Answer.answer << "\n";
-			return;
-		}
+		std::cout << "\nОшибка: вы ввели пустой символ\n";
 	}
-	for (auto& Question_Answer : database)
+	else
 	{
-		if (Question_Answer.question.find(question) != std::string::npos)
+		for (auto& Question_Answer : database)
 		{
-			std::cout << "\nНайдено похожее:\n";
-			std::cout << "\nВопрос: " << Question_Answer.question << "\n";
-			std::cout << "Ответ: " << Question_Answer.answer << "\n";
-			return;
+			if (Question_Answer.question == question)
+			{
+				std::cout << "Ответ: " << Question_Answer.answer << "\n";
+				return;
+			}
 		}
+		for (auto& Question_Answer : database)
+		{
+			if (Question_Answer.question.find(question) != std::string::npos)
+			{
+				std::cout << "\nНайдено похожее:\n";
+				std::cout << "\nВопрос: " << Question_Answer.question << "\n";
+				std::cout << "Ответ: " << Question_Answer.answer << "\n";
+				return;
+			}
+		}
+		std::cout << "\nВопрос не найден.\n";
 	}
-	std::cout << "\nВопрос не найден.\n";
 }
 
 void printQuestion_Answer()
@@ -245,6 +252,11 @@ int checkmenu()
 	{
 		std::cout << "Ваш выбор: ";
 		std::getline(std::cin, input);
+		if (input == " ")
+		{
+			std::cout << "Ошибка: вы ввели пустой символ\n\n";
+			continue;
+		}
 		if (input.empty())
 		{
 			std::cout << "Ошибка: Введите число\n\n";
